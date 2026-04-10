@@ -3,100 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andes Tech Lab | Portal</title>
+    <title>Andes Tech Lab | IT Command Center</title>
     <style>
-        /* 1. RESET TOTAL */
-        * { box-sizing: border-box; }
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background-color: #000; overflow: hidden;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        /* 1. RESET Y BASE */
+        body, html {
+            height: 100%; margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white; overflow: hidden;
+            background-color: #050505;
         }
 
-        /* 2. EL FONDO: Forzamos que ocupe todo */
-        .background-fix {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            /* Usamos tu archivo confirmado Fondo.jpg */
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('./Fondo.jpg');
-            background-size: cover; /* ESTO ES LO QUE LO ESTIRA */
-            background-position: center;
-            background-repeat: no-repeat;
+        /* 2. CAPA DE FONDO: Data Center con Gradiente */
+        .bg-image {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,30,0.7)), 
+                              url('./Fondo.jpg'); /* REVISA ESTE NOMBRE DE ARCHIVO */
+            height: 100vh; width: 100vw;
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-size: cover;
+            position: fixed; top: 0; left: 0;
             z-index: -1;
+            filter: brightness(0.8);
         }
 
-        /* 3. EL CONTENIDO: Flotando encima */
-        .main-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            width: 100%;
+        /* 3. CAPA DE CONTENIDO: Flotando encima */
+        .container {
+            display: flex; align-items: center; justify-content: center;
+            height: 100vh; position: relative; z-index: 10;
         }
 
-        .login-card {
-            background: rgba(20, 20, 20, 0.85); /* Fondo oscuro semitransparente */
+        /* Panel de cristal esmerilado con animación de entrada */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 20px;
-            padding: 60px 40px;
-            text-align: center;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px; padding: 45px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            max-width: 800px; width: 90%; text-align: center;
+            animation: panelFadeIn 1s ease-out; /* ANIMACIÓN DE ENTRADA */
         }
 
-        h1 { 
-            color: white; 
-            font-size: 2.2rem;
-            letter-spacing: 4px; 
-            margin: 0 0 10px 0; 
-            text-transform: uppercase;
+        @keyframes panelFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        p {
-            color: #00d4ff;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            font-size: 0.9rem;
+        h1 { font-size: 3rem; letter-spacing: 6px; margin: 0; font-weight: 300; text-transform: uppercase; }
+        
+        /* Estado parpadeante pro */
+        .status-bar { 
+            color: #00d4ff; font-size: 0.8rem; margin-bottom: 35px; 
+            font-weight: bold; letter-spacing: 2px;
+        }
+        #blink { animation: blinker 1.5s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        .menu-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
 
-        .btn-portal {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background-color: #00d4ff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 800;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        /* Tarjetas con animación de hover pro */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px; padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            text-decoration: none; color: white;
+            display: flex; flex-direction: column; align-items: center;
+            position: relative; overflow: hidden;
         }
 
-        .btn-portal:hover {
-            background-color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        /* Brillo sutil que recorre la tarjeta al hacer hover */
+        .card::after {
+            content: ''; position: absolute; top: -50%; left: -100%;
+            width: 100%; height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            transform: rotate(30deg); transition: 0.8s;
         }
+
+        .card:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: #00d4ff; transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+        }
+        .card:hover::after { left: 150%; } /* Dispara el brillo */
+
+        /* Estilos del reloj digital */
+        #clock { 
+            font-size: 2.8rem; font-weight: bold; 
+            font-family: 'Courier New', monospace; margin: 5px 0;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4); /* Glow sutil */
+        }
+        #date { font-size: 0.9rem; color: #00d4ff; font-weight: bold; }
+
+        /* Botón de Login Animado */
+        .btn-login {
+            background: transparent; border: 2px solid #00d4ff;
+            color: #00d4ff; padding: 12px 25px; border-radius: 6px;
+            text-decoration: none; font-weight: bold; margin-top: 15px;
+            transition: all 0.3s ease; text-transform: uppercase;
+            font-size: 0.8rem; letter-spacing: 1px;
+            position: relative;
+        }
+
+        /* Glow constante y suave */
+        .btn-login:hover {
+            background: #00d4ff; color: #000;
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.7);
+        }
+        
+        .tag { 
+            font-size: 0.65rem; opacity: 0.7; margin-top: 15px; 
+            border: 1px solid rgba(0,212,255,0.4); padding: 3px 10px; 
+            border-radius: 4px; background: rgba(0, 212, 255, 0.05);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="background-fix"></div>
+    <div class="bg-image"></div>
 
-    <div class="main-container">
-        <div class="login-card">
-            <h1>ANDES TECH LAB</h1>
-            <p>SISTEMA OPERATIVO ONLINE</p>
-            
-            <a href="https://portal.azure.com" target="_blank" class="btn-portal">ENTRAR AL PORTAL</a>
+    <div class="container">
+        <div class="glass-panel">
+            <h1>Andes Tech Lab</h1>
+            <div class="status-bar"><span id="blink">●</span> SYSTEM OPERATIONAL | SECURE CLOUD NODE</div>
+
+            <div class="menu-grid">
+                <div class="card">
+                    <div id="date">CARGANDO...</div>
+                    <div id="clock">00:00:00</div>
+                    <div class="tag">SANTIAGO, CL (LOCAL TIME)</div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin:0; font-weight: 400;">AZURE GATEWAY</h3>
+                    <p style="font-size: 0.8rem; color: #ccc; margin: 15px 0;">Acceso directo al portal de administración.</p>
+                    <a href="https://portal.azure.com/?whr=andestechlab.onmicrosoft.com" target="_blank" class="btn-login">Iniciar Sesión</a>
+                    <div class="tag">SSO / ENTRA ID PROTECTED</div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <script>
+        // Lógica del reloj (idéntica a la anterior)
+        function updateClock() {
+            const now = new Date();
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('date').innerText = now.toLocaleDateString('es-CL', options).toUpperCase();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('es-CL');
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
