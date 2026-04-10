@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andes Tech Lab | Command Center</title>
     <style>
-        /* Reseteo básico para que ocupe toda la pantalla */
         body, html { 
             height: 100%; 
             margin: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             color: white; 
             overflow: hidden; 
             background-color: #050505; 
         }
 
-        /* CAPA 1: EL FONDO (Imagen de Data Center) */
+        /* CAPA 1: EL FONDO - Forzamos que se vea */
         .bg-image {
+            /* 1. Usamos ./ para asegurar que busque en la raíz del sitio */
             background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,30,0.7)), 
-                              url('Fondo_Pro.jpg'); 
+                              url('./Fondo_Pro.jpg'); 
             height: 100vh; 
             width: 100vw;
             background-position: center; 
@@ -27,21 +27,19 @@
             position: fixed; 
             top: 0; 
             left: 0;
-            z-index: -1; /* Esto envía la imagen al fondo absoluto */
+            z-index: -1; 
             filter: brightness(0.8);
         }
 
-        /* CAPA 2: CONTENIDO (Al frente) */
         .container { 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             height: 100vh; 
             position: relative; 
-            z-index: 1; /* Esto asegura que el contenido esté sobre la imagen */
+            z-index: 1; 
         }
 
-        /* Panel de cristal esmerilado */
         .glass-panel { 
             background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(15px); 
@@ -58,19 +56,14 @@
         h1 { font-size: 3rem; letter-spacing: 6px; margin: 0; font-weight: 300; text-transform: uppercase; }
         .status-bar { color: #00d4ff; font-size: 0.8rem; margin-bottom: 35px; font-weight: bold; letter-spacing: 2px; }
         
-        .menu-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 25px; 
-        }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         
-        /* Tarjetas interactivas */
         .card { 
             background: rgba(255, 255, 255, 0.05); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
             border-radius: 15px; 
             padding: 30px; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transition: 0.4s; 
             text-decoration: none; 
             color: white; 
             display: flex; 
@@ -82,10 +75,9 @@
             background: rgba(0, 212, 255, 0.15); 
             border-color: #00d4ff; 
             transform: translateY(-8px);
-            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
         }
 
-        #clock { font-size: 2.8rem; font-weight: bold; font-family: 'Courier New', monospace; margin: 5px 0; }
+        #clock { font-size: 2.8rem; font-weight: bold; font-family: monospace; margin: 5px 0; }
         #date { font-size: 0.9rem; color: #00d4ff; font-weight: bold; }
 
         .btn-login { 
@@ -99,28 +91,10 @@
             margin-top: 15px; 
             transition: 0.3s;
             text-transform: uppercase;
-            font-size: 0.8rem;
         }
 
-        .btn-login:hover { 
-            background: #00d4ff; 
-            color: #000; 
-            box-shadow: 0 0 20px #00d4ff; 
-        }
-
-        .tag { 
-            font-size: 0.65rem; 
-            opacity: 0.7; 
-            margin-top: 15px; 
-            border: 1px solid rgba(0,212,255,0.4); 
-            padding: 3px 10px; 
-            border-radius: 4px; 
-            background: rgba(0, 212, 255, 0.05);
-        }
-
-        /* Punto de parpadeo */
-        #blink { animation: blinker 1.5s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
+        .btn-login:hover { background: #00d4ff; color: #000; box-shadow: 0 0 20px #00d4ff; }
+        .tag { font-size: 0.65rem; opacity: 0.7; margin-top: 15px; border: 1px solid rgba(0,212,255,0.4); padding: 3px 10px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -130,7 +104,7 @@
     <div class="container">
         <div class="glass-panel">
             <h1>Andes Tech Lab</h1>
-            <div class="status-bar"><span id="blink">●</span> SYSTEM OPERATIONAL | SECURE CLOUD NODE</div>
+            <div class="status-bar">● SYSTEM OPERATIONAL | SECURE CLOUD NODE</div>
 
             <div class="menu-grid">
                 <div class="card">
@@ -140,9 +114,9 @@
                 </div>
 
                 <div class="card">
-                    <h3 style="margin:0; font-weight: 400;">AZURE GATEWAY</h3>
-                    <p style="font-size: 0.8rem; color: #ccc; margin: 15px 0;">Acceso directo al portal de administración de recursos.</p>
-                    <a href="https://portal.azure.com" target="_blank" class="btn-login">Iniciar Sesión</a>
+                    <h3 style="margin:0;">AZURE GATEWAY</h3>
+                    <p style="font-size: 0.8rem; color: #ccc; margin: 15px 0;">Acceso directo al portal de administración.</p>
+                    <a href="https://portal.azure.com/?whr=andestechlab.onmicrosoft.com" target="_blank" class="btn-login">Iniciar Sesión</a>
                     <div class="tag">SSO / ENTRA ID PROTECTED</div>
                 </div>
             </div>
@@ -153,11 +127,11 @@
         function updateClock() {
             const now = new Date();
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-            // Actualiza la fecha
             document.getElementById('date').innerText = now.toLocaleDateString('es-CL', options).toUpperCase();
-            // Actualiza el reloj
             document.getElementById('clock').innerText = now.toLocaleTimeString('es-CL');
         }
-        // Ejecutar cada segundo
         setInterval(updateClock, 1000);
         updateClock();
+    </script>
+</body>
+</html>
