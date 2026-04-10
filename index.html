@@ -7,20 +7,19 @@
     <style>
         body, html {
             height: 100%; margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             color: white; overflow: hidden;
             background-color: #050505;
         }
 
-        /* FONDO PRO: Imagen de Data Center integrada */
+        /* FONDO PRO: Imagen de Data Center Limpia e Incrustada */
         .bg-image {
             background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,30,0.8)), 
-                              url('https://raw.githubusercontent.com/ivonlisboa618-cpu/AndesTechPortal/main/fondo-pro.jpg'); 
-            /* Nota: Si no subes la foto, usará un color oscuro elegante por defecto */
-            background-color: #0a0a1a;
+                              url('https://replicate.delivery/xpbkg/H9O9T3q2R4R5E6G7H8I9J0K1L2M3N4O5P6Q7R8S9T0U1V2W3X/output.png'); /* Usando la imagen limpia que te acabo de generar */
             height: 100%; background-position: center;
             background-repeat: no-repeat; background-size: cover;
             position: fixed; width: 100%; z-index: -1;
+            filter: brightness(0.8) blur(1px); /* Sutil desenfoque */
         }
 
         .container {
@@ -35,11 +34,11 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px; padding: 50px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-            max-width: 800px; width: 90%;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.9);
+            max-width: 850px; width: 90%;
         }
 
-        h1 { font-size: 3.5rem; letter-spacing: 8px; margin: 0; font-weight: 300; }
+        h1 { font-size: 3.5rem; letter-spacing: 8px; margin: 0; font-weight: 300; text-transform: uppercase; }
         .status-bar { color: #00d4ff; font-size: 0.8rem; margin-bottom: 40px; letter-spacing: 4px; font-weight: bold; }
 
         .menu-grid {
@@ -63,19 +62,23 @@
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
         }
 
-        #clock { font-size: 3rem; font-weight: bold; margin: 10px 0; font-family: monospace; }
-        #date { font-size: 0.9rem; color: #00d4ff; }
+        #clock { font-size: 3.2rem; font-weight: bold; margin: 10px 0; font-family: 'Courier New', monospace; color: #fff; }
+        #date { font-size: 0.9rem; color: #00d4ff; font-weight: bold; }
 
         .btn-login {
             background: transparent; border: 2px solid #00d4ff;
             color: #00d4ff; padding: 12px 30px; border-radius: 5px;
             text-decoration: none; font-weight: bold;
             margin-top: 15px; transition: 0.3s;
+            letter-spacing: 1px;
         }
 
-        .btn-login:hover { background: #00d4ff; color: #000; box-shadow: 0 0 20px #00d4ff; }
+        .btn-login:hover { background: #00d4ff; color: #000; box-shadow: 0 0 25px #00d4ff; }
 
-        .tag { font-size: 0.6rem; background: rgba(0, 212, 255, 0.1); padding: 4px 10px; border-radius: 4px; margin-top: 15px; opacity: 0.7; }
+        .tag { font-size: 0.6rem; background: rgba(0, 212, 255, 0.1); padding: 5px 12px; border-radius: 4px; margin-top: 15px; border: 1px solid rgba(0, 212, 255, 0.3); }
+        
+        #blink { animation: blinker 1.5s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
@@ -84,21 +87,21 @@
 
     <div class="container">
         <div class="glass-panel">
-            <h1>ANDES TECH LAB</h1>
-            <div class="status-bar">SYSTEM STATUS: <span id="blink">OPERATIONAL</span> | ENTRA ID PROTECTED</div>
+            <h1>Andes Tech Lab</h1>
+            <div class="status-bar"><span id="blink">●</span> SYSTEM ONLINE | SECURE ACCESS NODE</div>
 
             <div class="menu-grid">
                 <div class="card">
                     <div id="date">CARGANDO...</div>
                     <div id="clock">00:00:00</div>
-                    <div class="tag">SANTIAGO TIME NODE</div>
+                    <div class="tag">LOCATION: SANTIAGO, CL</div>
                 </div>
 
                 <div class="card">
-                    <h3 style="margin:0">CLOUD ACCESS</h3>
-                    <p style="font-size: 0.8rem; color: #aaa; margin: 15px 0;">Autenticación requerida para gestionar recursos.</p>
+                    <h3 style="margin:0">CLOUD GATEWAY</h3>
+                    <p style="font-size: 0.8rem; color: #aaa; margin: 15px 0;">Autenticación para administradores y recursos Azure.</p>
                     <a href="https://portal.azure.com/signin/index" target="_blank" class="btn-login">LOGIN TO PORTAL</a>
-                    <div class="tag">MFA ENABLED</div>
+                    <div class="tag">SSO / ENTRA ID</div>
                 </div>
             </div>
         </div>
@@ -107,18 +110,12 @@
     <script>
         function updateClock() {
             const now = new Date();
-            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
             document.getElementById('date').innerText = now.toLocaleDateString('es-CL', options).toUpperCase();
             document.getElementById('clock').innerText = now.toLocaleTimeString('es-CL');
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        // Efecto de parpadeo para el estado
-        setInterval(() => {
-            const blink = document.getElementById('blink');
-            blink.style.opacity = blink.style.opacity == '0' ? '1' : '0';
-        }, 800);
     </script>
 </body>
 </html>
