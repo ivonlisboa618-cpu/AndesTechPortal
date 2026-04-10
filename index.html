@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andes Tech Lab | IT Command Center</title>
     <style>
-        /* 1. RESET Y BASE */
+        /* BASE Y RESET */
         body, html {
             height: 100%; margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -13,10 +13,10 @@
             background-color: #050505;
         }
 
-        /* 2. CAPA DE FONDO (LA IMAGEN) */
+        /* FONDO: EL DATA CENTER LIMPIO (idéntico al branding) */
         .bg-image {
             background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,30,0.7)), 
-                              url('./Fondo.jpg'); 
+                              url('Fondo.jpg'); /* **¡Asegúrate de que el nombre coincida!** */
             height: 100vh; width: 100vw;
             background-position: center; 
             background-repeat: no-repeat; 
@@ -26,7 +26,7 @@
             filter: brightness(0.8);
         }
 
-        /* 3. CAPA DE CONTENIDO (DELANTE) */
+        /* CONTENIDO AL FRENTE */
         .container {
             display: flex; align-items: center; justify-content: center;
             height: 100vh; position: relative; z-index: 10;
@@ -50,7 +50,6 @@
             gap: 30px; margin-top: 20px;
         }
 
-        /* 4. TARJETAS */
         .card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -100,8 +99,8 @@
 
                 <div class="card">
                     <h3 style="margin:0; font-weight: 400;">AZURE GATEWAY</h3>
-                    <p style="font-size: 0.8rem; color: #ccc; margin: 15px 0;">Acceso directo al portal de administración.</p>
-                    <a href="https://portal.azure.com/?whr=andestechlab.onmicrosoft.com" target="_blank" class="btn-login">Iniciar Sesión</a>
+                    <p style="font-size: 0.8rem; color: #ccc; margin: 15px 0;">Acceso directo al portal de administración de recursos.</p>
+                    <a href="https://portal.azure.com" target="_blank" class="btn-login">Iniciar Sesión</a>
                     <div class="tag">SSO / ENTRA ID PROTECTED</div>
                 </div>
             </div>
